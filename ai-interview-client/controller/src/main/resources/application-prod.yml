@@ -1,0 +1,72 @@
+server:
+  port: 8090        # 端口号
+spring:
+  datasource: # 数据源的相关配置
+    type: com.zaxxer.hikari.HikariDataSource      # 数据源的类型，可以更改为其他的数据源配置，比如druid
+    driver-class-name: com.mysql.cj.jdbc.Driver      # mysql/MariaDB 的数据库驱动类名称
+    url: jdbc:mysql://47.239.2.8:4406/ai_interview_dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: mq20011103
+    hikari:
+      pool-name: DataSourceHikariCP           # 连接池的名字
+      connection-timeout: 30000               # 等待连接池分配连接的最大时间（毫秒），超过这个时长还没有可用的连接，则会抛出SQLException
+      minimum-idle: 5                         # 最小连接数
+      maximum-pool-size: 20                   # 最大连接数
+      auto-commit: true                       # 自动提交
+      idle-timeout: 600000                    # 连接超时的最大时长（毫秒），超时则会被释放（retired）
+      max-lifetime: 18000000                  # 连接池的最大生命时长（毫秒），超时则会被释放（retired）
+      connection-test-query: SELECT 1
+  data:
+    redis:
+      host: 47.239.2.8
+      port: 5379
+      password: mq20011103
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      base-url: ${OPENAI_BASE_URL}
+      chat:
+        options:
+          model: ${OPENAI_MODEL}
+    mcp:
+      client:
+        enabled: true
+        name: spring-ai-mcp-client
+        type: ASYNC
+        sse:
+          connections:
+            server2:
+              url: http://47.239.2.8:8099
+              sse-endpoint: /sse
+    vectorstore:
+      redis:
+        initialize-schema: true         # 是否初始化所需的模式
+        index-name: lee-vectorstore     # 用于存储向量的索引名称
+        prefix: 'embedding:'  # Redis键的前缀
+  cache:
+    type: redis
+
+minio:
+  endpoint: http://47.239.2.8:9000
+  fileHost: http://47.239.2.8:9000
+  bucketName: ai-interviewer
+  accessKey: Mickey2610
+  secretKey: mq20011103
+internet:
+  websearch:
+    searxng:
+      url: http://47.239.2.8:6680/search
+      counts: 10
+mickey:
+  redis:
+    domain: 47.239.2.8
+    port: 5379
+  frontend:
+    domain: http://47.239.2.8
+  jwt:
+    # 设置 JWT 签名加密时使用的秘钥
+    admin-secret-key: mickeyisagoodboydoyouagreemickeyisagoodboydoyouagree
+    # 设置 JWT 过期时间（单位：毫秒）
+    admin-ttl: 10800000 # 3小时
+    # 设置前端传递过来的令牌名称
+    admin-token-name: headerusertoken

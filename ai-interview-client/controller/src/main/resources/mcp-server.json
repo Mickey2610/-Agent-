@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:/Users/lenovo/Desktop/yanjiusheng"
+      ]
+    },
+    "12306-mcp": {
+      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "args": [
+        "-y",
+        "12306-mcp"
+      ]
+    }
+  }
+}
