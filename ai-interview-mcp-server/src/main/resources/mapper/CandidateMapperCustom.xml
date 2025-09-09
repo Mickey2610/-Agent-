@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mickey.mapper.CandidateMapperCustom">
+
+    <!-- 根据姓名查询应聘者信息 -->
+    <select id="selectCandidateByName" resultType="com.mickey.pojo.Entity.Candidate">
+        SELECT
+            id,
+            random_password AS randomPassword,
+            real_name AS realName,
+            identity_num AS identityNum,
+            mobile,
+            sex,
+            face,
+            email,
+            birthday,
+            country,
+            province,
+            city,
+            district,
+            address,
+            job_id AS jobId,
+            remark,
+            created_time AS createdTime,
+            updated_time AS updatedTime
+        FROM
+            candidate
+        WHERE
+            real_name = #{realName}
+            LIMIT 1
+    </select>
+</mapper>

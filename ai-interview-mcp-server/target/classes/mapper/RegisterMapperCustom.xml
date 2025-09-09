@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mickey.mapper.RegisterMapperCustom">
+
+    <!-- 根据用户名查询管理员信息 -->
+    <select id="selectAdminInfoByName" resultType="com.mickey.pojo.Entity.AdminInfo">
+        SELECT
+            id,
+            username,
+            password,
+            real_name AS realName,
+            mobile,
+            email,
+            sex,
+            birthday,
+            created_at AS createdAt,
+            updated_at AS updatedAt,
+            is_enabled AS isEnabled,
+            last_login_time AS lastLoginTime,
+            role
+        FROM
+            admin_info
+        WHERE
+            username = #{userName}
+            LIMIT 1
+    </select>
+
+</mapper>
